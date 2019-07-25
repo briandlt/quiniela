@@ -84,6 +84,7 @@
             $this->stmt->bindParam(10, $p8, PDO::PARAM_STR);
             $this->stmt->bindParam(11, $p9, PDO::PARAM_STR);
             $this->stmt->execute();
+            header('Location: ./');
         }
 
         public function aciertosJornadas($aciertos, $jornada, $idParticipante){
