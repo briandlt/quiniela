@@ -1,54 +1,117 @@
 $(document).ready(function () {
 
-    // ACTUALIZA LA CABECERA DE LA TABLA DEPENDIENDO DE LA JORNADA SELECCIONADA
+    // ENVIA  POR PARAMETRO GET LA JORNADA A MOSTRAR
     function actualizarJornada(jornada) {
-        $.ajax({
-            type: "post",
-            data: {jornada},
-            success: function (response) {
-                let jornada = JSON.parse(response);
-                $('.j1l').attr("src", "./imgs/equipos/"+ jornada[0].j1L + ".png");
-                $('.j1v').attr("src", "./imgs/equipos/"+ jornada[0].j1V + ".png");
-                $('.j2l').attr("src", "./imgs/equipos/"+ jornada[0].j2L + ".png");
-                $('.j2v').attr("src", "./imgs/equipos/"+ jornada[0].j2V + ".png");
-                $('.j3l').attr("src", "./imgs/equipos/"+ jornada[0].j3L + ".png");
-                $('.j3v').attr("src", "./imgs/equipos/"+ jornada[0].j3V + ".png");
-                $('.j4l').attr("src", "./imgs/equipos/"+ jornada[0].j4L + ".png");
-                $('.j4v').attr("src", "./imgs/equipos/"+ jornada[0].j4V + ".png");
-                $('.j5l').attr("src", "./imgs/equipos/"+ jornada[0].j5L + ".png");
-                $('.j5v').attr("src", "./imgs/equipos/"+ jornada[0].j5V + ".png");
-                $('.j6l').attr("src", "./imgs/equipos/"+ jornada[0].j6L + ".png");
-                $('.j6v').attr("src", "./imgs/equipos/"+ jornada[0].j6V + ".png");
-                $('.j7l').attr("src", "./imgs/equipos/"+ jornada[0].j7L + ".png");
-                $('.j7v').attr("src", "./imgs/equipos/"+ jornada[0].j7V + ".png");
-                $('.j8l').attr("src", "./imgs/equipos/"+ jornada[0].j8L + ".png");
-                $('.j8v').attr("src", "./imgs/equipos/"+ jornada[0].j8V + ".png");
-                $('.j9l').attr("src", "./imgs/equipos/"+ jornada[0].j9L + ".png");
-                $('.j9v').attr("src", "./imgs/equipos/"+ jornada[0].j9V + ".png");
-            }
-        });
+        window.location="?jornada="+jornada;
     }
 
-    // RELLENA LA TABLA CON LOS RESULTADOS DE LA JORNADA SELECCIONADA
+    // RELLENA LA TABLA CON LAS IMAGENES DELOS EQUIPOS GANADORES DE LA JORNADA
     function llenar_tabla_jornadas(jornadaResults) {
-        $.ajax({
-            type: "post",
-            data: {jornadaResults},
-            success: function (response) {
-                if(response == "[]"){
-                    $('#resultados table tbody').html("<tr><td colspan='10'>No hay resultados</td></tr>");
-                }else{
-                    let result = JSON.parse(response);
-                    console.log(result);
-                    $('#resultados table tbody tr').remove();
-                    for(let i = 0; i < result.length; i++){
 
-                        $('#resultados table tbody').append("<tr class='participante"+result[i].idParticipante+"'><td class='p-0'><img src='./imgs/participantes/"+ result[i].nombre +".jpg' alt='"+ result[i].nombre +"' height='50px' width='38'></td><td class='res1'><i class='icon-"+ result[i].j1 +"'></i></td><td class='res2'><i class='icon-"+ result[i].j2 +"'></i></td><td class='res3'><i class='icon-"+ result[i].j3 +"'></i></td><td class='res4'><i class='icon-"+ result[i].j4 +"'></i></td><td class='res5'><i class='icon-"+ result[i].j5 +"'></i></td><td class='res6'><i class='icon-"+ result[i].j6 +"'></i></td><td class='res7'><i class='icon-"+ result[i].j7 +"'></i></td><td class='res8'><i class='icon-"+ result[i].j8 +"'></i></td><td class='res9'><i class='icon-"+ result[i].j9 +"'></i></td></tr>");
-                    }
-                }
+        let l1 = $('th.res1 .local').attr('src');
+        let v1 = $('th.res1 .visitante').attr('src');
+        let l2 = $('th.res2 .local').attr('src');
+        let v2 = $('th.res2 .visitante').attr('src');
+        let l3 = $('th.res3 .local').attr('src');
+        let v3 = $('th.res3 .visitante').attr('src');
+        let l4 = $('th.res4 .local').attr('src');
+        let v4 = $('th.res4 .visitante').attr('src');
+        let l5 = $('th.res5 .local').attr('src');
+        let v5 = $('th.res5 .visitante').attr('src');
+        let l6 = $('th.res6 .local').attr('src');
+        let v6 = $('th.res6 .visitante').attr('src');
+        let l7 = $('th.res7 .local').attr('src');
+        let v7 = $('th.res7 .visitante').attr('src');
+        let l8 = $('th.res8 .local').attr('src');
+        let v8 = $('th.res8 .visitante').attr('src');
+        let l9 = $('th.res9 .local').attr('src');
+        let v9 = $('th.res9 .visitante').attr('src');
+
+        for(let i=1; i<12; i++){
+
+            if($('.participante'+i+'').siblings('.res1').children().attr("alt") == 'gana'){
+                $('.participante'+i+'').siblings('.res1').children().attr("src", l1);
+            }else if($('.participante'+i+'').siblings('.res1').children().attr("alt") == 'pierde'){
+                $('.participante'+i+'').siblings('.res1').children().attr("src", v1);
+            }else{
+                $('.participante'+i+'').siblings('.res1').children().remove();
+                $('.participante'+i+'').siblings('.res1').text('E');
             }
-        });
-    }
+
+            if($('.participante'+i+'').siblings('.res2').children().attr("alt") == 'gana'){
+                $('.participante'+i+'').siblings('.res2').children().attr("src", l2);
+            }else if($('.participante'+i+'').siblings('.res2').children().attr("alt") == 'pierde'){
+                $('.participante'+i+'').siblings('.res2').children().attr("src", v2);
+            }else{
+                $('.participante'+i+'').siblings('.res2').children().remove();
+                $('.participante'+i+'').siblings('.res2').text('E');
+            }
+
+            if($('.participante'+i+'').siblings('.res3').children().attr("alt") == 'gana'){
+                $('.participante'+i+'').siblings('.res3').children().attr("src", l3);
+            }else if($('.participante'+i+'').siblings('.res3').children().attr("alt") == 'pierde'){
+                $('.participante'+i+'').siblings('.res3').children().attr("src", v3);
+            }else{
+                $('.participante'+i+'').siblings('.res3').children().remove();
+                $('.participante'+i+'').siblings('.res3').text('E');
+            }
+
+            if($('.participante'+i+'').siblings('.res4').children().attr("alt") == 'gana'){
+                $('.participante'+i+'').siblings('.res4').children().attr("src", l4);
+            }else if($('.participante'+i+'').siblings('.res4').children().attr("alt") == 'pierde'){
+                $('.participante'+i+'').siblings('.res4').children().attr("src", v4);
+            }else{
+                $('.participante'+i+'').siblings('.res4').children().remove();
+                $('.participante'+i+'').siblings('.res4').text('E');
+            }
+
+            if($('.participante'+i+'').siblings('.res5').children().attr("alt") == 'gana'){
+                $('.participante'+i+'').siblings('.res5').children().attr("src", l5);
+            }else if($('.participante'+i+'').siblings('.res5').children().attr("alt") == 'pierde'){
+                $('.participante'+i+'').siblings('.res5').children().attr("src", v5);
+            }else{
+                $('.participante'+i+'').siblings('.res5').children().remove();
+                $('.participante'+i+'').siblings('.res5').text('E');
+            }
+
+            if($('.participante'+i+'').siblings('.res6').children().attr("alt") == 'gana'){
+                $('.participante'+i+'').siblings('.res6').children().attr("src", l6);
+            }else if($('.participante'+i+'').siblings('.res6').children().attr("alt") == 'pierde'){
+                $('.participante'+i+'').siblings('.res6').children().attr("src", v6);
+            }else{
+                $('.participante'+i+'').siblings('.res6').children().remove();
+                $('.participante'+i+'').siblings('.res6').text('E');
+            }
+
+            if($('.participante'+i+'').siblings('.res7').children().attr("alt") == 'gana'){
+                $('.participante'+i+'').siblings('.res7').children().attr("src", l7);
+            }else if($('.participante'+i+'').siblings('.res7').children().attr("alt") == 'pierde'){
+                $('.participante'+i+'').siblings('.res7').children().attr("src", v7);
+            }else{
+                $('.participante'+i+'').siblings('.res7').children().remove();
+                $('.participante'+i+'').siblings('.res7').text('E');
+            }
+
+            if($('.participante'+i+'').siblings('.res8').children().attr("alt") == 'gana'){
+                $('.participante'+i+'').siblings('.res8').children().attr("src", l8);
+            }else if($('.participante'+i+'').siblings('.res8').children().attr("alt") == 'pierde'){
+                $('.participante'+i+'').siblings('.res8').children().attr("src", v8);
+            }else{
+                $('.participante'+i+'').siblings('.res8').children().remove();
+                $('.participante'+i+'').siblings('.res8').text('E');
+            }
+
+            if($('.participante'+i+'').siblings('.res9').children().attr("alt") == 'gana'){
+                $('.participante'+i+'').siblings('.res9').children().attr("src", l9);
+            }else if($('.participante'+i+'').siblings('.res9').children().attr("alt") == 'pierde'){
+                $('.participante'+i+'').siblings('.res9').children().attr("src", v9);
+            }else{
+                $('.participante'+i+'').siblings('.res9').children().remove();
+                $('.participante'+i+'').siblings('.res9').text('E');
+            }
+        }
+
+    } 
 
     // COMPARA LOS RESULTADOS Y LOS REMARCA DEPENDIENDO ACIERTOS O FALLOS
     function compararResultados(jornadaResCorrect) {
@@ -58,49 +121,131 @@ $(document).ready(function () {
             success: function (response) {
                 if(response != "[]"){
                     let result = JSON.parse(response);
+                    var aciertos = [0];
                     for(let i = 1; i < 12; i++){ //participantes
+                        let contador = 0;
                         for(let j=1; j<10; j++){
-                            if("icon-"+result[0][j+1] == $(".participante"+i+">.res"+j+">i").attr('class')){
-                                console.log("encontrado")
-                                $(".participante"+i).children('.res'+j).addClass('acerto');
+                            if(result[0][j+1] == $(".participante"+i+"").siblings('.res'+j+'').children().attr('alt')){
+                                contador++;
+                                $(".participante"+i+"").siblings('.res'+j).addClass('acerto');
+                            }else if($(".participante"+i+"").siblings('.res'+j+'').text() != ""){
+                                if(result[0][j+1].charAt(0).toUpperCase() == $(".participante"+i+"").siblings('.res'+j+'').text()){
+                                    contador++;
+                                    $(".participante"+i+"").siblings('.res'+j).addClass('acerto');
+                                }
                             }
                         }
-                        
+                        aciertos.push(contador);   
                     }
                 }
+                let jornadaAciertos = $('#jornadas').val();
+                $.ajax({
+                    type: "post",
+                    data: {jornadaAciertos},
+                    success: function (response) {
+                        if(response != '[]'){
+                            let result = JSON.parse(response);
+                            for(let i=0; i<result.length; i++){
+                                if(result[i]['aciertos'] == null){
+                                    let idParticipante = i+1;
+                                    let nAciertos = aciertos[i+1];
+                                    let jornadaA = jornadaAciertos;
+                                    $.ajax({
+                                        type: "post",
+                                        data: {nAciertos, jornadaA, idParticipante},
+                                        success: function (response) {
+                                            console.log(response);
+                                        }
+                                    });
+                                }
+                            }
+                        }                        
+                    }
+                });
+                console.log(aciertos);
             }
         });
-
-        aciertos = [0];
-        for(i=1; i<12; i++){
-            let count = $('.participante'+i).children(".acerto").length;
-            aciertos[i] = count;
-        }
     }
 
+    // FUNCION QUE ENCUENTRA UNA VARIABLE EN LA URL 
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable) {
+                return pair[1];
+            }
+        }
+        return false;
+    }
+
+    // VERIFICA SI EL USUARIO YA ENVIO SU QUINIELA Y SI YA LA ENVIO YA NO APARECERA EL FORMULARIO
+    function removerQuiniela(){
+        if($('#quiniela p').hasClass('numeroJornada')){
+            let jornadaForm = $('#quiniela p>span').text();
+            let userLog = $('#userLog').text().trim().toLowerCase();
+            $.ajax({
+                type: "post",
+                data: {jornadaForm, userLog},
+                success: function (response) {
+                    if(response != "sin resultados"){
+                        $('div#quiniela').remove();
+                    }
+                }
+            });
+        }
+    }    
+
+    // VALIDACION FORMULARIO CAMBIO DE CONTRASEÑA
+    function valida_form_npassword(){
+
+    }
+
+    $(document).ready(function () {
+        let jornadaInicio = $('#jornadas').val();
+        llenar_tabla_jornadas(jornadaInicio);
+        compararResultados(jornadaInicio);
+        removerQuiniela();
+    });
+    let url = getQueryVariable('jornada');
+
+    for(let i=1; i<20; i++){
+        if($('#jornadas option[value='+i+']').val() == url){
+            $('#jornadas option[value='+i+']').attr('selected', true);
+        }
+
+    }
     
-
-    let jornadaInicio = $('#jornadas').children().val();
-    llenar_tabla_jornadas(jornadaInicio);
-    compararResultados(jornadaInicio);
-
     // CARGAR EL FORMULARIO DE LA QUINIELA CORRESPONDIENTE A LA JORNADA
-
-    
     $('#jornadas').change(function (e) { 
         e.preventDefault();
-        let jornada = $(this).val();    
-
-        console.log("cambio");
+        let jornada = $(this).val();
         actualizarJornada(jornada);
-        llenar_tabla_jornadas(jornada);
     });
 
-    $('#jornadas').on("change", function (e) { 
+    // CERRAR SESION Y REDIRECCIONAR AL INDEX
+    $('#cerrarSesion').click(function (e) { 
+        let cerrarSesion = true;
         e.preventDefault();
-        let jornada = $('#jornadas').val();
-        compararResultados(jornada);
-        console.log(jornada);
+        $.ajax({
+            type: "post",
+            data: {cerrarSesion},
+            success: function (response) {
+                window.location="index.php";
+            }
+        });
+    });
+
+    $('#cambiarPass').click(function (e) { 
+        let nuevoPass = $('#nuevoPass').val();
+        let confirmPass = $('#confirmPass').val();
+        if(nuevoPass != confirmPass){
+            e.preventDefault();
+            alert('Las contraseñas no coinciden');
+            $('#nuevoPass').text("");
+            $('#confirmPass').text("");
+        }
     });
     
 });

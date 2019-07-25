@@ -10,8 +10,8 @@
     background-size: cover;
 }
 
-#resultados{
-    background-color: rgb(224, 225, 226);
+#resultados, #quiniela{
+    background-color: rgb(189, 190, 192);
 }
 
 #resultados >table td{
@@ -20,6 +20,12 @@
 
 #resultados >table td i{
     line-height: 50px;
+}
+
+#resultados table td{
+    font-size: 22px;
+    font-weight: bold;
+    padding: 3px;
 }
 
 .formQuiniela{
@@ -40,9 +46,5 @@
 }
 
 .acerto{
-    background-color: rgb(70, 255, 14);
-}
-
-.fallo{
-    background-color: rgb(255, 7, 7);
+    background-color: rgb(155, 250, 126);
 }
