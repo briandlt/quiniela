@@ -47,7 +47,8 @@
         }
 
         public function obtenerFormJornada(){
-            $query = "SELECT * FROM jornadas WHERE fechaInicio <= now() AND fechaFin >= now()";
+            $fechaActual = date('Y-m-d H:i:s');
+            $query = "SELECT * FROM jornadas WHERE fechaInicio <= '$fechaActual' AND fechaFin >= '$fechaActual'";
             $this->stmt = $this->conexion->prepare($query);
             $this->stmt->execute();
             $this->result = $this->stmt->fetchAll(PDO::FETCH_BOTH);
