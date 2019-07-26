@@ -19,3 +19,5 @@
     define('METHOD', 'AES-256-CBC');
     define('SECRET_KEY', '$TD@2018');
     define('SECRET_IV', '221192');
+
+    date_default_timezone_set("America/Mexico_City");
