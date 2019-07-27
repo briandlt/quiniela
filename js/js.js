@@ -138,31 +138,6 @@ $(document).ready(function () {
                         aciertos.push(contador);   
                     }
                 }
-                let jornadaAciertos = $('#jornadas').val();
-                $.ajax({
-                    type: "post",
-                    data: {jornadaAciertos},
-                    success: function (response) {
-                        if(response != '[]'){
-                            let result = JSON.parse(response);
-                            for(let i=0; i<result.length; i++){
-                                if(result[i]['aciertos'] == null){
-                                    let idParticipante = i+1;
-                                    let nAciertos = aciertos[i+1];
-                                    let jornadaA = jornadaAciertos;
-                                    $.ajax({
-                                        type: "post",
-                                        data: {nAciertos, jornadaA, idParticipante},
-                                        success: function (response) {
-                                            console.log(response);
-                                        }
-                                    });
-                                }
-                            }
-                        }                        
-                    }
-                });
-                console.log(aciertos);
             }
         });
     }
@@ -246,6 +221,11 @@ $(document).ready(function () {
             $('#nuevoPass').text("");
             $('#confirmPass').text("");
         }
+    });
+
+    $('#addResultado').click(function (e) { 
+        // e.preventDefault();
+        $('#resultadoCorrecto').toggleClass('displayNone');
     });
     
 });

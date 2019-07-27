@@ -8,10 +8,6 @@
     $cerrarSesion = isset($_POST['cerrarSesion'])? $_POST['cerrarSesion']: 'null';
     $jornadaForm = isset($_POST['jornadaForm'])? $_POST['jornadaForm']: 'null';
     $userLog = isset($_POST['userLog'])? $_POST['userLog']: 'null';
-    $jornadaAciertos = isset($_POST['jornadaAciertos'])? $_POST['jornadaAciertos']: 'null';
-    $nAciertos = isset($_POST['nAciertos'])? $_POST['nAciertos']: 'null';
-    $jornadaA = isset($_POST['jornadaA'])? $_POST['jornadaA']: 'null';
-    $idParticipante = isset($_POST['idParticipante'])? $_POST['idParticipante']: 'null';
     $p1 = isset($_POST['p1'])? $_POST['p1']: 'null';
     $p2 = isset($_POST['p2'])? $_POST['p2']: 'null';
     $p3 = isset($_POST['p3'])? $_POST['p3']: 'null';
@@ -23,12 +19,16 @@
     $p9 = isset($_POST['p9'])? $_POST['p9']: 'null';
     $idUser = isset($_POST['idUser'])? $_POST['idUser']: 'null';
     $jornadaInsert = isset($_POST['jornadaInsert'])? $_POST['jornadaInsert']: 'null';
+    $jorn = isset($_POST['jornada'])? $_POST['jornada']: 'null';
+    $partido = isset($_POST['partido'])? $_POST['partido']: 'null';
+    $resultado = isset($_POST['resultado'])? $_POST['resultado']: 'null';
     
     
     $quiniela = new Quiniela;
     $getJornada = $quiniela->obtenerJornada($jornada);
     $getResultados = $quiniela->getResults($jornada);   
     $jornadaActiva = $quiniela->obtenerFormJornada();
+    $lideres = $quiniela->listarLideres();
 
 
     if($jornadaResCorrect != 'null'){
@@ -41,12 +41,10 @@
         $comprobarQuiniela = $quiniela->comprobarQuiniela($jornadaForm, $userLog);
     }elseif($p1 != 'null'){
         $guardarQuiniela = $quiniela->guardarQuiniela($idUser, $jornadaInsert, $p1, $p2, $p3, $p4, $p5, $p6, $p7, $p8, $p9);
-    }elseif($jornadaAciertos != 'null'){
-        $obtenerResultados = $quiniela->obtenerResults($jornadaAciertos);
-    }elseif($nAciertos != 'null' && $jornadaA != 'null' && $idParticipante != 'null'){
-        $aciertosJornadas = $quiniela->aciertosJornadas($nAciertos, $jornadaA, $idParticipante);
     }elseif($npass != 'null'){
         $cambiarPassword = $quiniela->cambiarPassword($npass, $username);
+    }elseif($jorn != 'null'){
+        $contabilizarAciertos = $quiniela->contabilizarAciertos($jorn, $partido, $resultado);
     }
 
 

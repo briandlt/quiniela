@@ -48,3 +48,24 @@
 .acerto{
     background-color: rgb(155, 250, 126);
 }
+
+#jornadas{
+    width: 115px!important;
+}
+
+#resultadoCorrecto select{
+    width: 115px;
+}
+
+#resultadoCorrecto{
+    background-color: rgb(189, 190, 192);
+}
+
+.displayNone{
+    display: none;
+}
+
+#puntuacion table td{
+    font-size: 20px;
+    font-weight: bold;
+}

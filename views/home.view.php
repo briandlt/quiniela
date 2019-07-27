@@ -30,6 +30,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#puntuacion">Puntuación</a>
                     </li>
+                    <?php if(isset($_SESSION['user']) && $_SESSION['user'] ==  "brian"): ?>
+                    <li class="nav-item">
+                        <a id="addResultado" class="nav-link" href="#resultadoCorrecto">Agregar resultado</a>
+                    </li>
+                    <?php endif; ?>
 
                     <?php if(isset($_SESSION['user'])): ?>
 
@@ -91,27 +96,11 @@
     <div class="container-fluid">
         <div class="row justify-content-center py-5" id="resultados">
             <p class="h3 col-12 text-center mb-4">Resultados</p>
-            <div class="col-12 text-center mb-3" id="selectJ">
-                <select name="jornadas" id="jornadas">
-                    <option class="1" value="1">Jornada 1</a></option>
-                    <option value="2">Jornada 2</a></option>
-                    <option value="3">Jornada 3</a></option>
-                    <option value="4">Jornada 4</a></option>
-                    <option value="5">Jornada 5</a></option>
-                    <option value="6">Jornada 6</a></option>
-                    <option value="7">Jornada 7</a></option>
-                    <option value="8">Jornada 8</option>
-                    <option value="9">Jornada 9</option>
-                    <option value="10">Jornada 10</option>
-                    <option value="11">Jornada 11</option>
-                    <option value="12">Jornada 12</option>
-                    <option value="13">Jornada 13</option>
-                    <option value="14">Jornada 14</option>
-                    <option value="15">Jornada 15</option>
-                    <option value="16">Jornada 16</option>
-                    <option value="17">Jornada 17</option>
-                    <option value="18">Jornada 18</option>
-                    <option value="19">Jornada 19</option>
+            <div class="col-12 text-center mb-3 row justify-content-center" id="selectJ">
+                <select name="jornadas" id="jornadas" class="form-control">
+                    <?php for($i=1; $i<20; $i++): ?>
+                    <option value="<?php echo $i; ?>">Jornada <?php echo $i; ?></a></option>
+                    <?php endfor; ?>
                 </select>    
             </div>
             <div class="col-12 col-lg-10 text-center">
@@ -138,15 +127,9 @@
                         ?>
                             <tr>
                                 <td class="participante<?php echo $resultado['idParticipante'] ?> py-0 px-2"><img src="./imgs/participantes/<?php echo $resultado['nombre']; ?>.jpg" alt="<?php echo $resultado['nombre']; ?>" height='40px' width='30'></td>
-                                <td class='res1'><img src="" alt="<?php echo $resultado['j1'] ?>"></td>
-                                <td class='res2'><img src="" alt="<?php echo $resultado['j2'] ?>"></td>
-                                <td class='res3'><img src="" alt="<?php echo $resultado['j3'] ?>"></td>
-                                <td class='res4'><img src="" alt="<?php echo $resultado['j4'] ?>"></td>
-                                <td class='res5'><img src="" alt="<?php echo $resultado['j5'] ?>"></td>
-                                <td class='res6'><img src="" alt="<?php echo $resultado['j6'] ?>"></td>
-                                <td class='res7'><img src="" alt="<?php echo $resultado['j7'] ?>"></td>
-                                <td class='res8'><img src="" alt="<?php echo $resultado['j8'] ?>"></td>
-                                <td class='res9'><img src="" alt="<?php echo $resultado['j9'] ?>"></td>
+                                <?php for($i=1; $i<10; $i++): ?>
+                                <td class='res<?php echo $i; ?>'><img src="" alt="<?php echo $resultado['j'.$i] ?>"></td>
+                                <?php endfor; ?>
                             </tr>
                         <?php 
                             endforeach;
@@ -163,18 +146,20 @@
         <div class="row formQuiniela text-white py-5 justify-content-center" id="puntuacion">
             <div class="col-12 col-lg-10 text-center my-3">
                 <p class="h4 text-center mb-3">Tabla de puntuación</p>
-                <table class="table bg-white table-responsive-md">
-                    <thead>
+                <table class="table bg-white">
+                    <thead class="thead-dark text-white">
                         <tr>
-                            <th scope="col">Jugador</th>
-                            <th scope="col">No. aciertos</th>
+                            <th>Jugador</th>
+                            <th>Aciertos Totales</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php foreach($lideres as $lider): ?>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>8</td>
+                            <th class="m-0 p-0 text-center"><img src="./imgs/participantes/<?php echo $lider['nombre']; ?>.jpg" alt="" width="40px"></th>
+                            <td class="text-center"><?php echo $lider['aciertosTotales']; ?></td>
                         </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -225,6 +210,31 @@
                         <div class="col text-center">
                             <input type="submit" value="Guardar" class="btn btn-primary">
                         </div>
+                </form>
+            </div>
+        </div>
+        <?php endif; ?>
+        <?php if(isset($_SESSION['user']) && $_SESSION['user'] == 'brian'): ?>
+        <div class="row text-white py-5 justify-content-center displayNone" id="resultadoCorrecto">
+            <div class="col-12 col-lg-10 text-center">
+                <p class="h4 text-dark mb-3">Agregar un resultado</p>
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="row justify-content-around px-3" method="post">
+                    <select name="jornada" id="jornada" class="form-control col-12 col-md-4 mb-3">
+                        <?php for($i=1; $i<20; $i++): ?>
+                        <option value="<?php echo $i; ?>">Jornada <?php echo $i; ?></option>
+                        <?php endfor; ?>
+                    </select>
+                    <select name="partido" id="partido" class="form-control col-12 col-md-4 mb-3">
+                        <?php for($i=1; $i<10; $i++): ?>
+                        <option value="j<?php echo $i; ?>">Partido <?php echo $i; ?></option>
+                        <?php endfor; ?>
+                    </select>
+                    <select name="resultado" id="resultado" class="form-control col-12 col-md-4 mb-3">
+                        <option value="gana">Gana</option>
+                        <option value="pierde">Pierde</option>
+                        <option value="empata">Empata</option>
+                    </select>
+                    <input type="submit" value="Guardar" class="btn btn-primary">
                 </form>
             </div>
         </div>

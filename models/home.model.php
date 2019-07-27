@@ -9,7 +9,8 @@
         }
 
         public function obtenerJornada($jornada){
-            $query = "SELECT * FROM jornadas WHERE idJornada = ?";
+            $jornadas = 'jornadas';
+            $query = "SELECT * FROM $jornadas WHERE idJornada = ?";
             $this->stmt = $this->conexion->prepare($query);
             $this->stmt->bindParam(1, $jornada, PDO::PARAM_INT);
             $this->stmt->execute();
@@ -26,15 +27,6 @@
             $this->result = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 
             return $this->result;
-        }
-
-        public function obtenerResults($jornada){
-            $query = 'SELECT * FROM resultados WHERE idJornada = ?';
-            $this->stmt = $this->conexion->prepare($query);
-            $this->stmt->bindParam(1, $jornada, PDO::PARAM_INT);
-            $this->stmt->execute();
-            $this->result = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-            die(json_encode($this->result));
         }
 
         public function getResultsCorrect($jornada){
@@ -71,7 +63,7 @@
         }
 
         public function guardarQuiniela($user, $jornada, $p1, $p2, $p3, $p4, $p5, $p6, $p7, $p8, $p9){
-            $query = "INSERT INTO resultados (idParticipante, idJornada, j1, j2, j3, j4, j5, j6, j7, j8, j9) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO resultados (idParticipante, idJornada, j1, j2, j3, j4, j5, j6, j7, j8, j9, aciertos) VALUES (?,?,?,?,?,?,?,?,?,?,?,0)";
             $this->stmt = $this->conexion->prepare($query);
             $this->stmt->bindParam(1, $user, PDO::PARAM_INT);
             $this->stmt->bindParam(2, $jornada, PDO::PARAM_INT);
@@ -88,17 +80,34 @@
             header('Location: ./');
         }
 
-        public function aciertosJornadas($aciertos, $jornada, $idParticipante){
-            $query = "UPDATE resultados SET aciertos = ? WHERE idJornada = ? AND idParticipante = ?";
+        // AGREGA EL RESULTADO CORRECTO DE UN PARTIDO PARA DESPUES OBTENER LOS PARTICIPANTES QUE ACERTARON Y CONTABILIZARLO
+        public function contabilizarAciertos($jornada, $partido, $resultado){
+            $query = "UPDATE resultados_correctos SET $partido = ? WHERE idJornada = ?";
             $this->stmt = $this->conexion->prepare($query);
-            $this->stmt->bindParam(1, $aciertos, PDO::PARAM_INT);
+            $this->stmt->bindParam(1, $resultado, PDO::PARAM_STR);
             $this->stmt->bindParam(2, $jornada, PDO::PARAM_INT);
-            $this->stmt->bindParam(3, $idParticipante, PDO::PARAM_INT);
             $this->stmt->execute();
+
+            $query = "SELECT t1.idParticipante FROM resultados AS t1 JOIN resultados_correctos AS t2 WHERE t1.idJornada = $jornada AND t2.idJornada = $jornada AND t1.$partido=t2.$partido";
+            $this->stmt = $this->conexion->prepare($query);
+            $this->stmt->execute();
+            $personasAcertaron = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach($personasAcertaron as $acerto){
+                $query = "UPDATE resultados SET aciertos = aciertos + 1  WHERE idParticipante = ? AND idJornada = ?";
+                $this->stmt = $this->conexion->prepare($query);
+                $this->stmt->bindParam(1, $acerto['idParticipante'], PDO::PARAM_INT);
+                $this->stmt->bindParam(2, $jornada, PDO::PARAM_INT);
+                $this->stmt->execute();
+            }
         }
 
-        public function tablaAciertos(){
-            $query = "";
+        public function listarLideres(){
+            $query = "SELECT * FROM vwaciertos_totales";
+            $this->stmt = $this->conexion->prepare($query);
+            $this->stmt->execute();
+            $this->result = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $this->result;
         }
 
         public function cambiarPassword($npassword, $username){
@@ -135,5 +144,5 @@
         }
 
         // 5302 nip portabilidad
-
+        // SELECT t1.idParticipante FROM resultados AS t1 JOIN resultados_correctos AS t2 WHERE t1.idJornada = 1 AND t2.idJornada = 1 AND t1.j1=t2.j1 
     }
