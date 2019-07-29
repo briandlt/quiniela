@@ -170,26 +170,22 @@ $(document).ready(function () {
                 }
             });
         }
-    }    
-
-    // VALIDACION FORMULARIO CAMBIO DE CONTRASEÑA
-    function valida_form_npassword(){
-
     }
 
-    $(document).ready(function () {
-        let jornadaInicio = $('#jornadas').val();
-        llenar_tabla_jornadas(jornadaInicio);
-        compararResultados(jornadaInicio);
-        removerQuiniela();
-    });
-    let url = getQueryVariable('jornada');
+    if(getQueryVariable('jornada') != false){
+        var jornada = getQueryVariable('jornada');
+    }else{
+        var jornada = 1;
+    }
+
+    llenar_tabla_jornadas(jornada);
+    compararResultados(jornada);
+    removerQuiniela();
 
     for(let i=1; i<20; i++){
-        if($('#jornadas option[value='+i+']').val() == url){
+        if($('#jornadas option[value='+i+']').val() == jornada){
             $('#jornadas option[value='+i+']').attr('selected', true);
         }
-
     }
     
     // CARGAR EL FORMULARIO DE LA QUINIELA CORRESPONDIENTE A LA JORNADA
@@ -212,6 +208,7 @@ $(document).ready(function () {
         });
     });
 
+    // CAMBIAR LA CONTRASEÑA
     $('#cambiarPass').click(function (e) { 
         let nuevoPass = $('#nuevoPass').val();
         let confirmPass = $('#confirmPass').val();
@@ -223,6 +220,7 @@ $(document).ready(function () {
         }
     });
 
+    // MUSTRA EL FORMULARIO PARA AGREGAR EL RESULTADO CORRECTO
     $('#addResultado').click(function (e) { 
         // e.preventDefault();
         $('#resultadoCorrecto').toggleClass('displayNone');
