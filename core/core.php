@@ -1,9 +1,9 @@
 <?php
 
     #Constantes de Conexion
-    define('DB_DSN', 'mysql:host=sql3.freesqldatabase.com; dbname=sql3299823');
-    define('DB_USER', 'sql3299823');
-    define('DB_PASS', 'hpsYG2SHqT');
+    define('DB_DSN', 'mysql:host=sql3.freesqldatabase.com; dbname=sql3300573');
+    define('DB_USER', 'sql3300573');
+    define('DB_PASS', 'U43gexVg45');
     define('DB_CHARSET', 'SET CHARACTER SET utf8');
 
     #Rutas
