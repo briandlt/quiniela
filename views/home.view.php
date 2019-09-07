@@ -43,7 +43,7 @@
                         <?php echo ucwords($_SESSION['user']); ?>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item text-center" id="cerrarSesion" href="">Cerrar sesión</a>
+                            <a class="dropdown-item text-center" id="cerrarSesion" href="./index.php?jornada=<?php echo $jornada; ?>">Cerrar sesión</a>
                             <a class="nav-link dropdown-toggle text-center px-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Cambia contraseña
                         </a>
