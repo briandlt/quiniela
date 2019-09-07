@@ -77,7 +77,7 @@
             $this->stmt->bindParam(10, $p8, PDO::PARAM_STR);
             $this->stmt->bindParam(11, $p9, PDO::PARAM_STR);
             $this->stmt->execute();
-            header('Location: ./');
+            header('Location: ./index.php?jornada='.$jornada);
         }
 
         // AGREGA EL RESULTADO CORRECTO DE UN PARTIDO PARA DESPUES OBTENER LOS PARTICIPANTES QUE ACERTARON Y CONTABILIZARLO
@@ -100,6 +100,7 @@
                 $this->stmt->bindParam(2, $jornada, PDO::PARAM_INT);
                 $this->stmt->execute();
             }
+            header('Location: ./index.php?jornada='.$jornada);
         }
 
         public function listarLideres(){
@@ -143,6 +144,4 @@
             session_destroy();
         }
 
-        // 5302 nip portabilidad
-        // SELECT t1.idParticipante FROM resultados AS t1 JOIN resultados_correctos AS t2 WHERE t1.idJornada = 1 AND t2.idJornada = 1 AND t1.j1=t2.j1 
     }

@@ -172,6 +172,7 @@ $(document).ready(function () {
         }
     }
 
+
     if(getQueryVariable('jornada') != false){
         var jornada = getQueryVariable('jornada');
     }else{
@@ -203,7 +204,7 @@ $(document).ready(function () {
             type: "post",
             data: {cerrarSesion},
             success: function (response) {
-                window.location="index.php";
+                window.location="";
             }
         });
     });
@@ -224,6 +225,8 @@ $(document).ready(function () {
     $('#addResultado').click(function (e) { 
         // e.preventDefault();
         $('#resultadoCorrecto').toggleClass('displayNone');
+        $('#jornaCorr').val(jornada);
+        console.log(jornada);
     });
     
 });

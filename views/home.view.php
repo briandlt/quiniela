@@ -48,7 +48,7 @@
                         Cambia contraseña
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <form class="px-4 py-3" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                            <form class="px-4 py-3" method="POST" action="./index.php?jornada=<?php echo $jornada; ?>">
                                 <div class="form-group">
                                     <label for="">Nuevo password</label>
                                     <input type="password" class="form-control" id="nuevoPass" placeholder="Contraseña" name="npass" required>
@@ -72,7 +72,7 @@
                         Usuario
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <form class="px-4 py-3" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                            <form class="px-4 py-3" method="POST" action="./index.php?jornada=<?php echo $jornada; ?>">
                                 <div class="form-group">
                                     <label for="exampleDropdownFormEmail1">Usuario</label>
                                     <input type="text" class="form-control" id="exampleDropdownFormEmail1" placeholder="elcacas12" name="user" required>
@@ -168,7 +168,7 @@
         <div class="row text-dark py-5 justify-content-center" id="quiniela">
             <div class="col-12 col-lg-10 text-center">
                 <p class="h4 text-center mb-3 numeroJornada">Jornada <span><?php echo $jornadaActiva[0][0]; ?></span></p>
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="bg-white py-4">
+                <form action="./index.php?jornada=<?php echo $jornadaActiva[0][0]; ?>" method="post" class="bg-white py-4">
                     <div class="row my-3">
                         <div class="col text-center">
                             <p class="text-dark font-weight-bold">Local</p>
@@ -219,15 +219,17 @@
             <div class="col-12 col-lg-10 text-center">
                 <p class="h4 text-dark mb-3">Agregar un resultado</p>
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" class="row justify-content-around px-3" method="post">
-                    <select name="jornada" id="jornada" class="form-control col-12 col-md-4 mb-3">
-                        <?php for($i=1; $i<20; $i++): ?>
-                        <option value="<?php echo $i; ?>">Jornada <?php echo $i; ?></option>
-                        <?php endfor; ?>
-                    </select>
+                    <input type="hidden" name="jornada" id="jornaCorr" val="">
                     <select name="partido" id="partido" class="form-control col-12 col-md-4 mb-3">
-                        <?php for($i=1; $i<10; $i++): ?>
-                        <option value="j<?php echo $i; ?>">Partido <?php echo $i; ?></option>
-                        <?php endfor; ?>
+                        <?php 
+                            $j = 3;
+                            for($i=1; $i<10; $i++): 
+                        ?>
+                        <option value="j<?php echo $i; ?>"><?php echo $getJornada[0][$j] . " "; ?>vs <?php echo $getJornada[0][$j+1]; ?></option>
+                        <?php 
+                            $j += 2;
+                            endfor; 
+                        ?>
                     </select>
                     <select name="resultado" id="resultado" class="form-control col-12 col-md-4 mb-3">
                         <option value="gana">Gana</option>
