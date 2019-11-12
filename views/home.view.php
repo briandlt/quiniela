@@ -74,12 +74,12 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <form class="px-4 py-3" method="POST" action="./index.php?jornada=<?php echo $jornada; ?>">
                                 <div class="form-group">
-                                    <label for="exampleDropdownFormEmail1">Usuario</label>
-                                    <input type="text" class="form-control" id="exampleDropdownFormEmail1" placeholder="elcacas12" name="user" required>
+                                    <label for="user">Usuario</label>
+                                    <input type="text" class="form-control" id="user" placeholder="elcacas12" name="user" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleDropdownFormPassword1">Contraseña<a href=""></a></label>
-                                    <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Contraseña" name="pass" required>
+                                    <label for="pass">Contraseña<a href=""></a></label>
+                                    <input type="password" class="form-control" id="pass" placeholder="Contraseña" name="pass" required>
                                 </div>
                                 <button type="submit" name="login" class="btn btn-primary">Iniciar Sesión</button>
                             </form>
@@ -123,7 +123,7 @@
                     <tbody class="bg-white">
                         <?php 
                             if(!empty($getResultados)):
-                            foreach($getResultados as $resultado):
+                                foreach($getResultados as $resultado):
                         ?>
                             <tr>
                                 <td class="participante<?php echo $resultado['idParticipante'] ?> py-0 px-2"><img src="./imgs/participantes/<?php echo $resultado['nombre']; ?>.jpg" alt="<?php echo $resultado['nombre']; ?>" height='40px' width='30'></td>
@@ -132,7 +132,7 @@
                                 <?php endfor; ?>
                             </tr>
                         <?php 
-                            endforeach;
+                                endforeach;
                             else:
                         ?>
                             <tr>

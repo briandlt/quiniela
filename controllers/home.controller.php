@@ -26,15 +26,15 @@
     
     $quiniela = new Quiniela;
     $getJornada = $quiniela->obtenerJornada($jornada);
-    $getResultados = $quiniela->getResults($jornada);   
     $jornadaActiva = $quiniela->obtenerFormJornada();
     $lideres = $quiniela->listarLideres();
-
+    
 
     if($jornadaResCorrect != 'null'){
         $obtenerResultadosCorrectos = $quiniela->getResultsCorrect($jornadaResCorrect);
     }elseif($user != 'null'){
         $iniciarSesion = $quiniela->iniciarSesion($user, $pass);
+        $usuario = isset($_SESSION['idUser'])? $_SESSION['idUser']: 'null';
     }elseif($cerrarSesion != 'null'){
         $finalSesion = $quiniela->cerrarSesion();
     }elseif($jornadaForm != 'null' && $userLog != 'null'){
@@ -47,6 +47,10 @@
         $contabilizarAciertos = $quiniela->contabilizarAciertos($jorn, $partido, $resultado);
     }
 
-
+    $usuario = isset($_SESSION['idUser'])? $_SESSION['idUser']: 'null';
+    $getResultados = $quiniela->getResults($jornada, $usuario);
+    // if($usuario != 'null'){
+    // }
+    
     
     require_once './views/home.view.php';

@@ -5,7 +5,7 @@ $(document).ready(function () {
         window.location="?jornada="+jornada;
     }
 
-    // RELLENA LA TABLA CON LAS IMAGENES DELOS EQUIPOS GANADORES DE LA JORNADA
+    // RELLENA LA TABLA CON LAS IMAGENES DE LOS EQUIPOS
     function llenar_tabla_jornadas(jornadaResults) {
 
         let l1 = $('th.res1 .local').attr('src');

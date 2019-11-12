@@ -19,14 +19,32 @@
             return $this->return;
         }
 
-        public function getResults($jornada){
-            $query = 'SELECT * FROM vwresultados WHERE idJornada = ?';
+        public function getResults($jornada, $usuario){
+            $query = 'SELECT idJornada FROM jornadas WHERE idJornada = ? AND now() > fechaFin';
             $this->stmt = $this->conexion->prepare($query);
             $this->stmt->bindParam(1, $jornada, PDO::PARAM_INT);
             $this->stmt->execute();
-            $this->result = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+            $mostrarJornada = $this->stmt->fetch(PDO::FETCH_ASSOC);
+            if(!empty($mostrarJornada)){ // SI YA SE CUMPLIO EL PLAZO PARA SUBIR LA QUINIELA, MOSTRARA LOS RESULTADOS DE CADA PARTICIPANTE.
+                $query = 'SELECT * FROM vwresultados WHERE idJornada = ?';
+                $this->stmt = $this->conexion->prepare($query);
+                $this->stmt->bindParam(1, $jornada, PDO::PARAM_INT);
+                $this->stmt->execute();
+                $this->result = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            return $this->result;
+                return $this->result;
+            }else{ // DE LO CONTRARIO MOSTRARA SOLO EL RESULTADO DEL USUARIO CON LA SESION ACTIVA
+                if($usuario != 'null'){
+                    $query = "SELECT * FROM vwresultados WHERE idJornada = ? AND idParticipante = ?";
+                    $this->stmt = $this->conexion->prepare($query);
+                    $this->stmt->bindParam(1, $jornada, PDO::PARAM_INT);
+                    $this->stmt->bindParam(2, $usuario, PDO::PARAM_STR);
+                    $this->stmt->execute();
+                    $this->result = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    return $this->result;
+                }
+            }
         }
 
         public function getResultsCorrect($jornada){
