@@ -149,6 +149,7 @@
                 <table class="table bg-white">
                     <thead class="thead-dark text-white">
                         <tr>
+                            <th></th>
                             <th>Jugador</th>
                             <th>Aciertos Totales</th>
                         </tr>
@@ -156,7 +157,8 @@
                     <tbody>
                         <?php foreach($lideres as $lider): ?>
                         <tr>
-                            <th class="m-0 p-0 text-center"><img src="./imgs/participantes/<?php echo $lider['nombre']; ?>.jpg" alt="" width="40px"></th>
+                            <th class="m-0 p-0 text-center"><img src="./imgs/participantes/<?php echo $lider['userName']; ?>.jpg" alt="" width="40px"></th>
+                            <td class="text-center"><?php echo ucwords($lider['nombre']) . " " . ucwords($lider['apellido']); ?></td>
                             <td class="text-center"><?php echo $lider['aciertosTotales']; ?></td>
                         </tr>
                         <?php endforeach; ?>
