@@ -75,7 +75,7 @@
                             <form class="px-4 py-3" method="POST" action="./index.php?jornada=<?php echo $jornada; ?>">
                                 <div class="form-group">
                                     <label for="user">Usuario</label>
-                                    <input type="text" class="form-control" id="user" placeholder="elcacas12" name="user" required>
+                                    <input type="text" class="form-control" id="user" placeholder="Usuario" name="user" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="pass">Contraseña<a href=""></a></label>
