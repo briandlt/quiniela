@@ -158,7 +158,7 @@
                         <?php foreach($lideres as $lider): ?>
                         <tr>
                             <th class="m-0 p-0 text-center"><img src="./imgs/participantes/<?php echo $lider['userName']; ?>.jpg" alt="" width="40px"></th>
-                            <td class="text-center"><?php echo ucwords($lider['nombre']) . " " . ucwords($lider['apellido']); ?></td>
+                            <td class="text-center fullname"><?php echo ucwords($lider['nombre']) . " " . ucwords($lider['apellido']); ?></td>
                             <td class="text-center"><?php echo $lider['aciertosTotales']; ?></td>
                         </tr>
                         <?php endforeach; ?>
