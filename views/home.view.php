@@ -98,7 +98,7 @@
             <p class="h3 col-12 text-center mb-4">Resultados</p>
             <div class="col-12 text-center mb-3 row justify-content-center" id="selectJ">
                 <select name="jornadas" id="jornadas" class="form-control">
-                    <?php for($i=1; $i<20; $i++): ?>
+                    <?php for($i=1; $i<18; $i++): ?>
                     <option value="<?php echo $i; ?>">Jornada <?php echo $i; ?></a></option>
                     <?php endfor; ?>
                 </select>    
