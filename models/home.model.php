@@ -65,8 +65,15 @@
             return $this->result;
         }
 
-        public function comprobarQuiniela($jornada, $user){
-            $query = "SELECT * FROM vwresultados WHERE idJornada = ? AND nombre = ?";
+        public function comprobarQuiniela($user){
+            $fechaActual = date('Y-m-d H:i:s');
+            $query = "SELECT * FROM jornadas WHERE fechaInicio <= '$fechaActual' AND fechaFin >= '$fechaActual'";
+            $this->stmt = $this->conexion->prepare($query);
+            $this->stmt->execute();
+            $this->result = $this->stmt->fetch(PDO::FETCH_ASSOC);
+            $jornada = $this->result['idJornada'];
+
+            $query = "SELECT * FROM vwresultados WHERE idJornada = ? AND idParticipante = ?";
             $this->stmt = $this->conexion->prepare($query);
             $this->stmt->bindParam(1, $jornada, PDO::PARAM_INT);
             $this->stmt->bindParam(2, $user, PDO::PARAM_STR);
@@ -74,9 +81,9 @@
             $this->result = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 
             if($this->result){
-                die(json_encode($this->result));
+                return(true);
             }else{
-                die("sin resultados");
+                return(false);
             }
         }
 

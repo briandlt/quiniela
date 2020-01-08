@@ -166,7 +166,8 @@
                 </table>
             </div>
         </div>
-        <?php if($jornadaActiva && isset($_SESSION['user'])): ?>
+        <?php if($jornadaActiva && !$comprobarQuiniela && isset($_SESSION['user'])): ?>
+        
         <div class="row text-dark py-5 justify-content-center" id="quiniela">
             <div class="col-12 col-lg-10 text-center">
                 <p class="h4 text-center mb-3 numeroJornada">Jornada <span><?php echo $jornadaActiva[0][0]; ?></span></p>

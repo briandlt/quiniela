@@ -155,24 +155,6 @@ $(document).ready(function () {
         return false;
     }
 
-    // VERIFICA SI EL USUARIO YA ENVIO SU QUINIELA Y SI YA LA ENVIO YA NO APARECERA EL FORMULARIO
-    function removerQuiniela(){
-        if($('#quiniela p').hasClass('numeroJornada')){
-            let jornadaForm = $('#quiniela p>span').text();
-            let userLog = $('#userLog').text().trim().toLowerCase();
-            $.ajax({
-                type: "post",
-                data: {jornadaForm, userLog},
-                success: function (response) {
-                    if(response != "sin resultados"){
-                        $('div#quiniela').remove();
-                    }
-                }
-            });
-        }
-    }
-
-
     if(getQueryVariable('jornada') != false){
         var jornada = getQueryVariable('jornada');
     }else{
@@ -181,7 +163,6 @@ $(document).ready(function () {
 
     llenar_tabla_jornadas(jornada);
     compararResultados(jornada);
-    removerQuiniela();
 
     for(let i=1; i<20; i++){
         if($('#jornadas option[value='+i+']').val() == jornada){

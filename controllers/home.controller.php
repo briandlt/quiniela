@@ -37,14 +37,18 @@
         $usuario = isset($_SESSION['idUser'])? $_SESSION['idUser']: 'null';
     }elseif($cerrarSesion != 'null'){
         $finalSesion = $quiniela->cerrarSesion();
-    }elseif($jornadaForm != 'null' && $userLog != 'null'){
-        $comprobarQuiniela = $quiniela->comprobarQuiniela($jornadaForm, $userLog);
     }elseif($p1 != 'null'){
         $guardarQuiniela = $quiniela->guardarQuiniela($idUser, $jornadaInsert, $p1, $p2, $p3, $p4, $p5, $p6, $p7, $p8, $p9);
     }elseif($npass != 'null'){
         $cambiarPassword = $quiniela->cambiarPassword($npass, $username);
     }elseif($jorn != 'null'){
         $contabilizarAciertos = $quiniela->contabilizarAciertos($jorn, $partido, $resultado);
+    }
+
+    if(isset($_SESSION['idUser'])){
+        $comprobarQuiniela = $quiniela->comprobarQuiniela($_SESSION['idUser']);
+    }else{
+        $comprobarQuiniela = false;
     }
 
     $usuario = isset($_SESSION['idUser'])? $_SESSION['idUser']: 'null';
