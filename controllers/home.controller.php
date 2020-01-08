@@ -49,8 +49,6 @@
 
     $usuario = isset($_SESSION['idUser'])? $_SESSION['idUser']: 'null';
     $getResultados = $quiniela->getResults($jornada, $usuario);
-    // if($usuario != 'null'){
-    // }
     
     
     require_once './views/home.view.php';

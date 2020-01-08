@@ -81,20 +81,28 @@
         }
 
         public function guardarQuiniela($user, $jornada, $p1, $p2, $p3, $p4, $p5, $p6, $p7, $p8, $p9){
-            $query = "INSERT INTO resultados (idParticipante, idJornada, j1, j2, j3, j4, j5, j6, j7, j8, j9, aciertos) VALUES (?,?,?,?,?,?,?,?,?,?,?,0)";
+            $query = "SELECT * FROM vwresultados WHERE idJornada = ? AND idParticipante = ?";
             $this->stmt = $this->conexion->prepare($query);
-            $this->stmt->bindParam(1, $user, PDO::PARAM_INT);
-            $this->stmt->bindParam(2, $jornada, PDO::PARAM_INT);
-            $this->stmt->bindParam(3, $p1, PDO::PARAM_STR);
-            $this->stmt->bindParam(4, $p2, PDO::PARAM_STR);
-            $this->stmt->bindParam(5, $p3, PDO::PARAM_STR);
-            $this->stmt->bindParam(6, $p4, PDO::PARAM_STR);
-            $this->stmt->bindParam(7, $p5, PDO::PARAM_STR);
-            $this->stmt->bindParam(8, $p6, PDO::PARAM_STR);
-            $this->stmt->bindParam(9, $p7, PDO::PARAM_STR);
-            $this->stmt->bindParam(10, $p8, PDO::PARAM_STR);
-            $this->stmt->bindParam(11, $p9, PDO::PARAM_STR);
+            $this->stmt->bindParam(1, $jornada, PDO::PARAM_STR);
+            $this->stmt->bindParam(2, $user, PDO::PARAM_STR);
             $this->stmt->execute();
+            $resultado = $this->stmt->fetch(PDO::FETCH_ASSOC);
+            if(!$resultado){
+                $query = "INSERT INTO resultados (idParticipante, idJornada, j1, j2, j3, j4, j5, j6, j7, j8, j9, aciertos) VALUES (?,?,?,?,?,?,?,?,?,?,?,0)";
+                $this->stmt = $this->conexion->prepare($query);
+                $this->stmt->bindParam(1, $user, PDO::PARAM_INT);
+                $this->stmt->bindParam(2, $jornada, PDO::PARAM_INT);
+                $this->stmt->bindParam(3, $p1, PDO::PARAM_STR);
+                $this->stmt->bindParam(4, $p2, PDO::PARAM_STR);
+                $this->stmt->bindParam(5, $p3, PDO::PARAM_STR);
+                $this->stmt->bindParam(6, $p4, PDO::PARAM_STR);
+                $this->stmt->bindParam(7, $p5, PDO::PARAM_STR);
+                $this->stmt->bindParam(8, $p6, PDO::PARAM_STR);
+                $this->stmt->bindParam(9, $p7, PDO::PARAM_STR);
+                $this->stmt->bindParam(10, $p8, PDO::PARAM_STR);
+                $this->stmt->bindParam(11, $p9, PDO::PARAM_STR);
+                $this->stmt->execute();
+            }
             header('Location: ./index.php?jornada='.$jornada);
         }
 
