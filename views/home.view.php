@@ -56,7 +56,7 @@
                                 <div class="form-group">
                                     <label for="">Confirme password<a href=""></a></label>
                                     <input type="password" class="form-control" id="confirmPass" placeholder="Contraseña" name="consfirmPass" required>
-                                    <input type="hidden" name="username" value="<?php echo $_SESSION['user']; ?>">
+                                    <input type="hidden" name="username" value="<?php echo $_SESSION['idUser']; ?>">
                                 </div>
                                 <button type="submit" name="login" class="btn btn-primary" id="cambiarPass">Cambiar</button>
                             </form>

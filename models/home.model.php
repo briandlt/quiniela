@@ -144,11 +144,11 @@
             return $this->result;
         }
 
-        public function cambiarPassword($npassword, $username){
-            $query = "UPDATE participantes SET passwd = ? WHERE nombre = ?";
+        public function cambiarPassword($npassword, $idUser){
+            $query = "UPDATE participantes SET passwd = ? WHERE idParticipante = ?";
             $this->stmt = $this->conexion->prepare($query);
             $this->stmt->bindParam(1, $npassword, PDO::PARAM_STR);
-            $this->stmt->bindParam(2, $username, PDO::PARAM_STR);
+            $this->stmt->bindParam(2, $idUser, PDO::PARAM_INT);
             $this->stmt->execute();
         }
 

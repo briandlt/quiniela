@@ -4,7 +4,7 @@
     $user = isset($_POST['user'])? $_POST['user']: 'null';
     $pass = isset($_POST['pass'])? $_POST['pass']: 'null';
     $npass = isset($_POST['npass'])? $_POST['npass']: 'null';
-    $username = isset($_POST['username'])? $_POST['username']: 'null';
+    $idUsuario = isset($_POST['username'])? $_POST['username']: 'null';
     $cerrarSesion = isset($_POST['cerrarSesion'])? $_POST['cerrarSesion']: 'null';
     $jornadaForm = isset($_POST['jornadaForm'])? $_POST['jornadaForm']: 'null';
     $userLog = isset($_POST['userLog'])? $_POST['userLog']: 'null';
@@ -40,7 +40,7 @@
     }elseif($p1 != 'null'){
         $guardarQuiniela = $quiniela->guardarQuiniela($idUser, $jornadaInsert, $p1, $p2, $p3, $p4, $p5, $p6, $p7, $p8, $p9);
     }elseif($npass != 'null'){
-        $cambiarPassword = $quiniela->cambiarPassword($npass, $username);
+        $cambiarPassword = $quiniela->cambiarPassword($npass, $idUsuario);
     }elseif($jorn != 'null'){
         $contabilizarAciertos = $quiniela->contabilizarAciertos($jorn, $partido, $resultado);
     }
