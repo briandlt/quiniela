@@ -27,7 +27,8 @@ $(document).ready(function () {
         let l9 = $('th.res9 .local').attr('src');
         let v9 = $('th.res9 .visitante').attr('src');
 
-        for(let i=1; i<12; i++){
+        let numParticipantes = 50;
+        for(let i=1; i<numParticipantes; i++){
 
             if($('.participante'+i+'').siblings('.res1').children().attr("alt") == 'gana'){
                 $('.participante'+i+'').siblings('.res1').children().attr("src", l1);
