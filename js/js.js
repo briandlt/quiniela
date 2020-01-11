@@ -123,7 +123,7 @@ $(document).ready(function () {
                 if(response != "[]"){
                     let result = JSON.parse(response);
                     var aciertos = [0];
-                    for(let i = 1; i < 12; i++){ //participantes
+                    for(let i = 1; i < 50; i++){ //participantes
                         let contador = 0;
                         for(let j=1; j<10; j++){
                             if(result[0][j+1] == $(".participante"+i+"").siblings('.res'+j+'').children().attr('alt')){
