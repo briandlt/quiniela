@@ -67,6 +67,7 @@
             return $this->result;
         }
 
+        // COMPRUEBA SI EL PARTICIPANTE YA SUBIO SU QUINIELA, PARA MOSTRARLA O NO EL FORMULARIO DE LA QUINIELA
         public function comprobarQuiniela($user){
             $fechaActual = date('Y-m-d H:i:s');
             $query = "SELECT * FROM jornadas WHERE fechaInicio <= '$fechaActual' AND fechaFin >= '$fechaActual'";
@@ -123,18 +124,12 @@
             $this->stmt->bindParam(2, $jornada, PDO::PARAM_INT);
             $this->stmt->execute();
 
-            $query = "SELECT t1.idParticipante FROM resultados AS t1 JOIN resultados_correctos AS t2 WHERE t1.idJornada = $jornada AND t2.idJornada = $jornada AND t1.$partido=t2.$partido";
+            $query = "UPDATE resultados SET aciertos = aciertos + 1  WHERE $partido = ? AND idJornada = ?";
             $this->stmt = $this->conexion->prepare($query);
+            $this->stmt->bindParam(1, $resultado, PDO::PARAM_STR);
+            $this->stmt->bindParam(2, $jornada, PDO::PARAM_INT);
             $this->stmt->execute();
-            $personasAcertaron = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            foreach($personasAcertaron as $acerto){
-                $query = "UPDATE resultados SET aciertos = aciertos + 1  WHERE idParticipante = ? AND idJornada = ?";
-                $this->stmt = $this->conexion->prepare($query);
-                $this->stmt->bindParam(1, $acerto['idParticipante'], PDO::PARAM_INT);
-                $this->stmt->bindParam(2, $jornada, PDO::PARAM_INT);
-                $this->stmt->execute();
-            }
+            
             header('Location: ./index.php?jornada='.$jornada);
         }
 
