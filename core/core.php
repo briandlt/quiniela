@@ -1,9 +1,9 @@
 <?php
 
     #Constantes de Conexion
-    define ( ' DB_DSN ' , ' mysql: host = db4free.net ; dbname = quinielamamalona ' );
-    define ( ' DB_USER ' , ' briandlt ' );
-    define ( ' DB_PASS ' , ' bedlt221192 ' );
+    define ('DB_DSN', 'mysql: host = db4free.net ; dbname = quinielamamalona');
+    define ('DB_USER', 'briandlt');
+    define ('DB_PASS', 'bedlt221192');
     define('DB_CHARSET', 'SET CHARACTER SET utf8');
 
     #Rutas
