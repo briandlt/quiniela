@@ -109,7 +109,7 @@
                         <tr>
                             <th></th>
                             <?php
-                                $j = 3;
+                                $j = 1;
                                 for($i=1; $i<10; $i++): 
                             ?>
                             <th class="res<?php echo $i; ?>"><img src="./imgs/equipos/<?php echo $getJornada[0][$j]; ?>.png" class="j<?php echo $i; ?>l local" width="22px">vs<img src="./imgs/equipos/<?php echo $getJornada[0][$j+1]; ?>.png" class="j<?php echo $i; ?>v visitante" width="22px"></th>
@@ -184,7 +184,7 @@
                         </div>
                     </div>
                     <?php 
-                        $c=3;
+                        $c=1;
                         for($i=1; $i<10; $i++): 
                     ?>
                         <div class="row my-3 filaPrartido">
@@ -225,13 +225,13 @@
                     <input type="hidden" name="jornada" id="jornaCorr" val="">
                     <select name="partido" id="partido" class="form-control col-12 col-md-4 mb-3">
                         <?php 
-                            $j = 3;
+                            $j = 1;
                             for($i=1; $i<10; $i++): 
                         ?>
                         <option value="j<?php echo $i; ?>"><?php echo $getJornada[0][$j] . " "; ?>vs <?php echo $getJornada[0][$j+1]; ?></option>
                         <?php 
                             $j += 2;
-                            endfor; 
+                            endfor;
                         ?>
                     </select>
                     <select name="resultado" id="resultado" class="form-control col-12 col-md-4 mb-3">

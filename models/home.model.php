@@ -9,7 +9,7 @@
         }
 
         public function obtenerJornada($jornada){
-            $jornadas = 'jornadas';
+            $jornadas = 'vw_jornadas';
             $query = "SELECT * FROM $jornadas WHERE idJornada = ?";
             $this->stmt = $this->conexion->prepare($query);
             $this->stmt->bindParam(1, $jornada, PDO::PARAM_INT);
@@ -28,7 +28,7 @@
             $this->stmt->execute();
             $mostrarJornada = $this->stmt->fetch(PDO::FETCH_ASSOC);
             if(!empty($mostrarJornada)){ // SI YA SE CUMPLIO EL PLAZO PARA SUBIR LA QUINIELA, MOSTRARA LOS RESULTADOS DE CADA PARTICIPANTE.
-                $query = 'SELECT * FROM vwresultados WHERE idJornada = ?';
+                $query = 'SELECT * FROM vw_resultados WHERE idJornada = ?';
                 $this->stmt = $this->conexion->prepare($query);
                 $this->stmt->bindParam(1, $jornada, PDO::PARAM_INT);
                 $this->stmt->execute();
@@ -37,7 +37,7 @@
                 return $this->result;
             }else{ // DE LO CONTRARIO MOSTRARA SOLO EL RESULTADO DEL USUARIO CON LA SESION ACTIVA
                 if($usuario != 'null'){
-                    $query = "SELECT * FROM vwresultados WHERE idJornada = ? AND idParticipante = ?";
+                    $query = "SELECT * FROM vw_resultados WHERE idJornada = ? AND idParticipante = ?";
                     $this->stmt = $this->conexion->prepare($query);
                     $this->stmt->bindParam(1, $jornada, PDO::PARAM_INT);
                     $this->stmt->bindParam(2, $usuario, PDO::PARAM_STR);
@@ -60,7 +60,7 @@
 
         public function obtenerFormJornada(){
             $fechaActual = date('Y-m-d H:i:s');
-            $query = "SELECT * FROM jornadas WHERE fechaInicio <= '$fechaActual' AND fechaFin >= '$fechaActual'";
+            $query = "SELECT * FROM vw_jornadas WHERE fechaInicio <= '$fechaActual' AND fechaFin >= '$fechaActual'";
             $this->stmt = $this->conexion->prepare($query);
             $this->stmt->execute();
             $this->result = $this->stmt->fetchAll(PDO::FETCH_BOTH);
@@ -76,7 +76,7 @@
             $this->result = $this->stmt->fetch(PDO::FETCH_ASSOC);
             $jornada = $this->result['idJornada'];
 
-            $query = "SELECT * FROM vwresultados WHERE idJornada = ? AND idParticipante = ?";
+            $query = "SELECT * FROM vw_resultados WHERE idJornada = ? AND idParticipante = ?";
             $this->stmt = $this->conexion->prepare($query);
             $this->stmt->bindParam(1, $jornada, PDO::PARAM_INT);
             $this->stmt->bindParam(2, $user, PDO::PARAM_STR);
@@ -91,7 +91,7 @@
         }
 
         public function guardarQuiniela($user, $jornada, $p1, $p2, $p3, $p4, $p5, $p6, $p7, $p8, $p9){
-            $query = "SELECT * FROM vwresultados WHERE idJornada = ? AND idParticipante = ?";
+            $query = "SELECT * FROM vw_resultados WHERE idJornada = ? AND idParticipante = ?";
             $this->stmt = $this->conexion->prepare($query);
             $this->stmt->bindParam(1, $jornada, PDO::PARAM_STR);
             $this->stmt->bindParam(2, $user, PDO::PARAM_STR);
@@ -134,7 +134,7 @@
         }
 
         public function listarLideres(){
-            $query = "SELECT * FROM vwaciertos_totales";
+            $query = "SELECT * FROM vw_aciertos_totales";
             $this->stmt = $this->conexion->prepare($query);
             $this->stmt->execute();
             $this->result = $this->stmt->fetchAll(PDO::FETCH_ASSOC);

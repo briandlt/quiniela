@@ -208,7 +208,6 @@ $(document).ready(function () {
         // e.preventDefault();
         $('#resultadoCorrecto').toggleClass('displayNone');
         $('#jornaCorr').val(jornada);
-        console.log(jornada);
     });
     
 });
