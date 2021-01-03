@@ -45,23 +45,23 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item text-center" id="cerrarSesion" href="./index.php?jornada=<?php echo $jornada; ?>">Cerrar sesión</a>
                             <a class="nav-link dropdown-toggle text-center px-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Cambia contraseña
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <form class="px-4 py-3" method="POST" action="./index.php?jornada=<?php echo $jornada; ?>">
-                                <div class="form-group">
-                                    <label for="">Nuevo password</label>
-                                    <input type="password" class="form-control" id="nuevoPass" placeholder="Contraseña" name="npass" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Confirme password<a href=""></a></label>
-                                    <input type="password" class="form-control" id="confirmPass" placeholder="Contraseña" name="consfirmPass" required>
-                                    <input type="hidden" name="username" value="<?php echo $_SESSION['idUser']; ?>">
-                                </div>
-                                <button type="submit" name="login" class="btn btn-primary" id="cambiarPass">Cambiar</button>
-                            </form>
-                            <div class="dropdown-divider"></div>
-                        </div>
+                                Cambia contraseña
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <form class="px-4 py-3" method="POST" action="./index.php?jornada=<?php echo $jornada; ?>">
+                                    <div class="form-group">
+                                        <label for="">Nuevo password</label>
+                                        <input type="password" class="form-control" id="nuevoPass" placeholder="Contraseña" name="npass" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Confirme password<a href=""></a></label>
+                                        <input type="password" class="form-control" id="confirmPass" placeholder="Contraseña" name="consfirmPass" required>
+                                        <input type="hidden" name="username" value="<?php echo $_SESSION['idUser']; ?>">
+                                    </div>
+                                    <button type="submit" name="login" class="btn btn-primary" id="cambiarPass">Cambiar</button>
+                                </form>
+                                <div class="dropdown-divider"></div>
+                            </div>
                         </div>
                     </li>
 
@@ -84,7 +84,7 @@
                                 <button type="submit" name="login" class="btn btn-primary">Iniciar Sesión</button>
                             </form>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#contraseña">Cambia tu contraseña</a>
+                            <a class="dropdown-item text-center" id="crearUsuario" href="login">Registrarme ahora</a>
                         </div>
                     </li>
                     <?php endif; ?>
@@ -128,7 +128,7 @@
                             <tr>
                                 <td class="participante<?php echo $resultado['idParticipante'] ?> py-0 px-2"><img src="./imgs/participantes/<?php echo $resultado['userName']; ?>.jpg" alt="<?php echo $resultado['nombre']; ?>" height='40px' width='30'></td>
                                 <?php for($i=1; $i<10; $i++): ?>
-                                <td class='res<?php echo $i; ?>'><img src="" alt="<?php echo $resultado['j'.$i] ?>"></td>
+                                <td title='<?php echo $resultado['j'.$i] ?>' class='res<?php echo $i; ?>'><?php echo substr($resultado['j'.$i], 1) ?></td>
                                 <?php endfor; ?>
                             </tr>
                         <?php 
@@ -176,9 +176,6 @@
                         <div class="col text-center">
                             <p class="text-dark font-weight-bold">Local</p>
                         </div>
-                        <div class="col text-center">
-                            <p class="text-dark font-weight-bold">Empate</p>
-                        </div>
                         <div  class="col text-center">
                             <p class="text-dark font-weight-bold">Visitante</p>
                         </div>
@@ -189,15 +186,12 @@
                     ?>
                         <div class="row my-3 filaPrartido">
                             <div class="col text-center">
-                                <input required value="gana" type="radio" name="p<?php echo $i;?>" id="p<?php echo $i;?>">
+                                <input required type="number" name="p<?php echo $i;?>l" id="goles_local" max="20" min='0'>
                                 <label for=""><img src="./imgs/equipos/<?php echo $jornadaActiva[0][$c]; ?>.png" width="30px"></label>
-                            </div>
-                            <div class="col text-center">
-                                <input required value="empata" type="radio" name="p<?php echo $i;?>" id="p<?php echo $i;?>">
                             </div>
                             <div  class="col text-center">
                                 <label for=""><img src="./imgs/equipos/<?php echo $jornadaActiva[0][$c+1]; ?>.png" width="30px"></label>
-                                <input required value="pierde" type="radio" name="p<?php echo $i;?>" id="p<?php echo $i;?>">
+                                <input required type="number" name="p<?php echo $i;?>v" id="goles_visitante" max="20" min='0'>
                             </div>
                         </div>
                     <?php  
@@ -234,11 +228,7 @@
                             endfor;
                         ?>
                     </select>
-                    <select name="resultado" id="resultado" class="form-control col-12 col-md-4 mb-3">
-                        <option value="gana">Gana</option>
-                        <option value="pierde">Pierde</option>
-                        <option value="empata">Empata</option>
-                    </select>
+                    <input type="text" name="resultado" id="resultado" class="form-control col-12 col-md-4 mb-3">
                     <input type="submit" value="Guardar" class="btn btn-primary">
                 </form>
             </div>

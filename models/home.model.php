@@ -74,7 +74,7 @@
             $this->stmt = $this->conexion->prepare($query);
             $this->stmt->execute();
             $this->result = $this->stmt->fetch(PDO::FETCH_ASSOC);
-            $jornada = $this->result['idJornada'];
+            $jornada = ($this->result) ? $this->result['idJornada'] : null;
 
             $query = "SELECT * FROM vw_resultados WHERE idJornada = ? AND idParticipante = ?";
             $this->stmt = $this->conexion->prepare($query);
@@ -117,16 +117,23 @@
         }
 
         // AGREGA EL RESULTADO CORRECTO DE UN PARTIDO PARA DESPUES OBTENER LOS PARTICIPANTES QUE ACERTARON Y CONTABILIZARLO
-        public function contabilizarAciertos($jornada, $partido, $resultado){
+        public function contabilizarAciertos($jornada, $partido, $marcador, $resultado){
+            $resultadoMarcador = $resultado . '' . $marcador;
             $query = "UPDATE resultados_correctos SET $partido = ? WHERE idJornada = ?";
             $this->stmt = $this->conexion->prepare($query);
-            $this->stmt->bindParam(1, $resultado, PDO::PARAM_STR);
+            $this->stmt->bindParam(1, $resultadoMarcador, PDO::PARAM_STR);
             $this->stmt->bindParam(2, $jornada, PDO::PARAM_INT);
             $this->stmt->execute();
 
-            $query = "UPDATE resultados SET aciertos = aciertos + 1  WHERE $partido = ? AND idJornada = ?";
+            $query = "UPDATE resultados SET aciertos = aciertos + 2  WHERE $partido = ? AND idJornada = ?";
             $this->stmt = $this->conexion->prepare($query);
-            $this->stmt->bindParam(1, $resultado, PDO::PARAM_STR);
+            $this->stmt->bindParam(1, $resultadoMarcador, PDO::PARAM_STR);
+            $this->stmt->bindParam(2, $jornada, PDO::PARAM_INT);
+            $this->stmt->execute();
+
+            $query = "UPDATE resultados SET aciertos = aciertos + 1  WHERE $partido != ? AND $partido LIKE '%$resultado%' AND idJornada = ?";
+            $this->stmt = $this->conexion->prepare($query);
+            $this->stmt->bindParam(1, $resultadoMarcador, PDO::PARAM_STR);
             $this->stmt->bindParam(2, $jornada, PDO::PARAM_INT);
             $this->stmt->execute();
             
@@ -142,14 +149,16 @@
         }
 
         public function cambiarPassword($npassword, $idUser){
+            $npass = $this->encriptar($npassword);
             $query = "UPDATE participantes SET passwd = ? WHERE idParticipante = ?";
             $this->stmt = $this->conexion->prepare($query);
-            $this->stmt->bindParam(1, $npassword, PDO::PARAM_STR);
+            $this->stmt->bindParam(1, $npass, PDO::PARAM_STR);
             $this->stmt->bindParam(2, $idUser, PDO::PARAM_INT);
             $this->stmt->execute();
         }
 
-        public function iniciarSesion($user, $pass){
+        public function iniciarSesion($user, $password){
+            $pass = $this->encriptar($password);
             $query = "SELECT * FROM participantes WHERE userName = ? AND passwd = ?";
             $this->stmt = $this->conexion->prepare($query);
             $this->stmt->bindParam(1, $user, PDO::PARAM_STR);

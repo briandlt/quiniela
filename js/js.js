@@ -5,114 +5,6 @@ $(document).ready(function () {
         window.location="?jornada="+jornada;
     }
 
-    // RELLENA LA TABLA CON LAS IMAGENES DE LOS EQUIPOS
-    function llenar_tabla_jornadas(jornadaResults) {
-
-        let l1 = $('th.res1 .local').attr('src');
-        let v1 = $('th.res1 .visitante').attr('src');
-        let l2 = $('th.res2 .local').attr('src');
-        let v2 = $('th.res2 .visitante').attr('src');
-        let l3 = $('th.res3 .local').attr('src');
-        let v3 = $('th.res3 .visitante').attr('src');
-        let l4 = $('th.res4 .local').attr('src');
-        let v4 = $('th.res4 .visitante').attr('src');
-        let l5 = $('th.res5 .local').attr('src');
-        let v5 = $('th.res5 .visitante').attr('src');
-        let l6 = $('th.res6 .local').attr('src');
-        let v6 = $('th.res6 .visitante').attr('src');
-        let l7 = $('th.res7 .local').attr('src');
-        let v7 = $('th.res7 .visitante').attr('src');
-        let l8 = $('th.res8 .local').attr('src');
-        let v8 = $('th.res8 .visitante').attr('src');
-        let l9 = $('th.res9 .local').attr('src');
-        let v9 = $('th.res9 .visitante').attr('src');
-
-        let numParticipantes = 50;
-        for(let i=1; i<numParticipantes; i++){
-
-            if($('.participante'+i+'').siblings('.res1').children().attr("alt") == 'gana'){
-                $('.participante'+i+'').siblings('.res1').children().attr("src", l1);
-            }else if($('.participante'+i+'').siblings('.res1').children().attr("alt") == 'pierde'){
-                $('.participante'+i+'').siblings('.res1').children().attr("src", v1);
-            }else{
-                $('.participante'+i+'').siblings('.res1').children().remove();
-                $('.participante'+i+'').siblings('.res1').text('E');
-            }
-
-            if($('.participante'+i+'').siblings('.res2').children().attr("alt") == 'gana'){
-                $('.participante'+i+'').siblings('.res2').children().attr("src", l2);
-            }else if($('.participante'+i+'').siblings('.res2').children().attr("alt") == 'pierde'){
-                $('.participante'+i+'').siblings('.res2').children().attr("src", v2);
-            }else{
-                $('.participante'+i+'').siblings('.res2').children().remove();
-                $('.participante'+i+'').siblings('.res2').text('E');
-            }
-
-            if($('.participante'+i+'').siblings('.res3').children().attr("alt") == 'gana'){
-                $('.participante'+i+'').siblings('.res3').children().attr("src", l3);
-            }else if($('.participante'+i+'').siblings('.res3').children().attr("alt") == 'pierde'){
-                $('.participante'+i+'').siblings('.res3').children().attr("src", v3);
-            }else{
-                $('.participante'+i+'').siblings('.res3').children().remove();
-                $('.participante'+i+'').siblings('.res3').text('E');
-            }
-
-            if($('.participante'+i+'').siblings('.res4').children().attr("alt") == 'gana'){
-                $('.participante'+i+'').siblings('.res4').children().attr("src", l4);
-            }else if($('.participante'+i+'').siblings('.res4').children().attr("alt") == 'pierde'){
-                $('.participante'+i+'').siblings('.res4').children().attr("src", v4);
-            }else{
-                $('.participante'+i+'').siblings('.res4').children().remove();
-                $('.participante'+i+'').siblings('.res4').text('E');
-            }
-
-            if($('.participante'+i+'').siblings('.res5').children().attr("alt") == 'gana'){
-                $('.participante'+i+'').siblings('.res5').children().attr("src", l5);
-            }else if($('.participante'+i+'').siblings('.res5').children().attr("alt") == 'pierde'){
-                $('.participante'+i+'').siblings('.res5').children().attr("src", v5);
-            }else{
-                $('.participante'+i+'').siblings('.res5').children().remove();
-                $('.participante'+i+'').siblings('.res5').text('E');
-            }
-
-            if($('.participante'+i+'').siblings('.res6').children().attr("alt") == 'gana'){
-                $('.participante'+i+'').siblings('.res6').children().attr("src", l6);
-            }else if($('.participante'+i+'').siblings('.res6').children().attr("alt") == 'pierde'){
-                $('.participante'+i+'').siblings('.res6').children().attr("src", v6);
-            }else{
-                $('.participante'+i+'').siblings('.res6').children().remove();
-                $('.participante'+i+'').siblings('.res6').text('E');
-            }
-
-            if($('.participante'+i+'').siblings('.res7').children().attr("alt") == 'gana'){
-                $('.participante'+i+'').siblings('.res7').children().attr("src", l7);
-            }else if($('.participante'+i+'').siblings('.res7').children().attr("alt") == 'pierde'){
-                $('.participante'+i+'').siblings('.res7').children().attr("src", v7);
-            }else{
-                $('.participante'+i+'').siblings('.res7').children().remove();
-                $('.participante'+i+'').siblings('.res7').text('E');
-            }
-
-            if($('.participante'+i+'').siblings('.res8').children().attr("alt") == 'gana'){
-                $('.participante'+i+'').siblings('.res8').children().attr("src", l8);
-            }else if($('.participante'+i+'').siblings('.res8').children().attr("alt") == 'pierde'){
-                $('.participante'+i+'').siblings('.res8').children().attr("src", v8);
-            }else{
-                $('.participante'+i+'').siblings('.res8').children().remove();
-                $('.participante'+i+'').siblings('.res8').text('E');
-            }
-
-            if($('.participante'+i+'').siblings('.res9').children().attr("alt") == 'gana'){
-                $('.participante'+i+'').siblings('.res9').children().attr("src", l9);
-            }else if($('.participante'+i+'').siblings('.res9').children().attr("alt") == 'pierde'){
-                $('.participante'+i+'').siblings('.res9').children().attr("src", v9);
-            }else{
-                $('.participante'+i+'').siblings('.res9').children().remove();
-                $('.participante'+i+'').siblings('.res9').text('E');
-            }
-        }
-
-    } 
 
     // COMPARA LOS RESULTADOS Y LOS REMARCA DEPENDIENDO ACIERTOS O FALLOS
     function compararResultados(jornadaResCorrect) {
@@ -120,20 +12,20 @@ $(document).ready(function () {
             type: "post",
             data: {jornadaResCorrect},
             success: function (response) {
-                if(response != "[]"){
+                if (response != "[]") {
                     let result = JSON.parse(response);
                     var aciertos = [0];
                     for(let i = 1; i < 50; i++){ //participantes
                         let contador = 0;
-                        for(let j=1; j<10; j++){
-                            if(result[0][j+1] == $(".participante"+i+"").siblings('.res'+j+'').children().attr('alt')){
+                        for (let j = 1; j < 10; j++){
+                            let resultadoCorrecto = result[0][j + 1];
+                            let resultado = $(".participante" + i + "").siblings('.res' + j + '').attr('title');
+                            if (result[0][j + 1] == $(".participante" + i + "").siblings('.res' + j + '').attr('title')) {
+                                $(".participante" + i + "").siblings('.res' + j + '').text()
                                 contador++;
-                                $(".participante"+i+"").siblings('.res'+j).addClass('acerto');
-                            }else if($(".participante"+i+"").siblings('.res'+j+'').text() != ""){
-                                if(result[0][j+1].charAt(0).toUpperCase() == $(".participante"+i+"").siblings('.res'+j+'').text()){
-                                    contador++;
-                                    $(".participante"+i+"").siblings('.res'+j).addClass('acerto');
-                                }
+                                $(".participante" + i + "").siblings('.res' + j).addClass('acerto-doble');
+                            } else if (resultado && resultadoCorrecto && resultadoCorrecto.split('')[0] === resultado.split('')[0]) {
+                                $(".participante" + i + "").siblings('.res' + j).addClass('acerto-sencillo');
                             }
                         }
                         aciertos.push(contador);   
@@ -162,7 +54,6 @@ $(document).ready(function () {
         var jornada = 1;
     }
 
-    llenar_tabla_jornadas(jornada);
     compararResultados(jornada);
 
     for(let i=1; i<20; i++){

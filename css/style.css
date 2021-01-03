@@ -45,8 +45,19 @@
     justify-content: space-around;
 }
 
-.acerto{
+.acerto-sencillo{
     background-color: rgb(155, 250, 126);
+}
+
+.acerto-doble{
+    background-color: rgb(117, 174, 228);
+}
+
+.containerSignIn{
+    background-color: rgba(0, 0, 0, 0.719);
+    margin: 80px auto;
+    padding: 30px 20px;
+    border-radius: 8px;
 }
 
 #jornadas{
@@ -72,4 +83,9 @@
 
 #puntuacion table .fullname{
     width: 70%;
+}
+
+#goles_local,
+#goles_visitante{
+    width: 38px;
 }

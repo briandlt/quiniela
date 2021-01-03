@@ -2,8 +2,8 @@
 
     #Constantes de Conexion
     define('DB_DSN', 'mysql:host=localhost; dbname=quiniela');
-    define('DB_USER', 'briandlt');
-    define('DB_PASS', 'bedlt221192');
+    define('DB_USER', 'root');
+    define('DB_PASS', '');
     define('DB_CHARSET', 'SET CHARACTER SET utf8');
 
     #Rutas
